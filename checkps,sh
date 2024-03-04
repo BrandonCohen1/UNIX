@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#  Title          : checkps.sh
+#  Author         : Brandon Cohen
+#  Created on     : October 2, 2023
+#  Description    : A script that runs ps command every N seconds. There is one parameter for the number of seconds to wait vetween calling ps.
+#  Purpose        : To familirize ourself with scripting and run the ps command.
+#  Usage          : ./checkps.sh
+#  Build with     : ./checkps [N]
+#  Modifications  :
+
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 1 ]; then
+    echo "Only 1 argument is required."
+    echo "./checkfps [num_of_seconds]"
+    exit 1
+fi
+
+# If the only paramter is not an integer, exit and print error.
+if [[ ! $1 =~ ^[0-9]+$ ]]; then
+    echo "Invalid argument. Please provide a positive integer."
+    echo "./checkps [num_of_seconds]"
+    exit 1
+fi
+
+# Number of times to run ps command
+runs=5
+
+# Run ps command every N seconds for a total of five times
+for ((i = 1; i <= runs; i++)); do
+    ps
+    sleep "$1"
+done
